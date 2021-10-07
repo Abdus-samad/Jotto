@@ -1,7 +1,7 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import App from '../App';
-import {findByTestAttr} from '../test/testUtlis';
+import { findByTestAttr } from '../test/testUtlis';
 
 /**
  * Create wrapper with specified initail conditions,
@@ -17,10 +17,10 @@ const setup = (state = {}) => {
 	const wrapper = mount(<App />);
 	// add value to input box
 	const inputBox = findByTestAttr(wrapper, 'input-box');
-	inputBox.simulate('change', {target: {value: 'train'}});
+	inputBox.simulate('change', { target: { value: 'train' } });
 	// simulate click on submit button
 	const submitButton = findByTestAttr(wrapper, 'submit-button');
-	submitButton.simulate('click', {preventDefault() {}});
+	submitButton.simulate('click', { preventDefault() {} });
 	return wrapper;
 };
 describe.skip('no word guessed', () => {
@@ -32,7 +32,6 @@ describe.skip('no word guessed', () => {
 			guessedWords: [],
 		});
 	});
-
 	test('create GuessedWords table with one row', () => {
 		const guessedWordRows = findByTestAttr(wrapper, 'guessed-word');
 		expect(guessedWordRows).toHaveLength(1);
@@ -44,7 +43,7 @@ describe.skip('some word guessed', () => {
 		wrapper = setup({
 			secretWord: 'party',
 			success: false,
-			guessedWords: [{guessedWord: 'agile', letterMatchCount: 1}],
+			guessedWords: [{ guessedWord: 'agile', letterMatchCount: 1 }],
 		});
 	});
 
@@ -59,15 +58,15 @@ describe.skip('guessed secret word', () => {
 		wrapper = setup({
 			sercetWord: 'party',
 			success: false,
-			guessedWords: [{guessedWord: 'agile', letterMatchCount: 1}],
+			guessedWords: [{ guessedWord: 'agile', letterMatchCount: 1 }],
 		});
-       // Add value to input box
-        const inputBox = findByTestAttr(wrapper, 'input-box');
-        const mockEvent = {target: {value: 'party'}};
-        inputBox.simulate('change', mockEvent);
-        // simulate click on submit button
-        const submitButton = findByTestAttr(wrapper, 'submit-button');
-        submitButton.simulate('click', {preventDefault() {}});
+		// Add value to input box
+		const inputBox = findByTestAttr(wrapper, 'input-box');
+		const mockEvent = { target: { value: 'party' } };
+		inputBox.simulate('change', mockEvent);
+		// simulate click on submit button
+		const submitButton = findByTestAttr(wrapper, 'submit-button');
+		submitButton.simulate('click', { preventDefault() {} });
 	});
 
 	test('add row to guessedWords table', () => {
@@ -84,7 +83,7 @@ describe.skip('guessed secret word', () => {
 
 		// const submitButton = findByTestAttr(wrapper, 'submit-button');
 		// expect(submitButton.exists()).toBe(false);
-        const input = findByTestAttr(wrapper, 'component-input')
-        expect(input.text().length).toBe(0)
-	})
-})
+		const input = findByTestAttr(wrapper, 'component-input');
+		expect(input.text().length).toBe(0);
+	});
+});
